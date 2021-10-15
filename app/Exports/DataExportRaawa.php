@@ -16,7 +16,7 @@ class DataExportRaawa implements FromCollection
         return RaawaModel::select(DB::raw("*"))
                         ->where('online_raawa_expired','>',date('Y-m-d'))
                         ->where('online_raawa_expired','<',date('Y-m-d', strtotime('14 days')))
-                        ->orderBy('online_raawa_expired','desc')
+                        ->orderBy('online_raawa_expired','asc')
                         ->get();
     }
 }

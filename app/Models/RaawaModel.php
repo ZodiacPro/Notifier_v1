@@ -23,6 +23,6 @@ class RaawaModel extends Model
         'online_raawa',
         'online_raawa_expired',
         'team',
-        'token',
+        'user_id',
     ];
 }

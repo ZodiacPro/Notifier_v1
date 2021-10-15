@@ -1,11 +1,11 @@
-@extends('layouts.app', ['pageSlug' => 'expired', 'tab' => 'data'])
+@extends('layouts.app', ['pageSlug' => 'expired_user', 'tab' => 'data'])
 
 @section('content')
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card "><br>
                 <div class="card-header"  style="border-bottom: 1px solid rgb(238, 10, 200);padding-bottom:10px;">
-                    <h4 class="card-title">Expired Data List</h4>
+                    <h4 class="card-title">Expired Data List - User</h4>
                     <div class="col-sm-6">
                         <div class="btn-group btn-group-toggle float-left" data-toggle="buttons">
                         <label class="btn btn-sm btn-primary btn-simple active" id="0">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive" id="tb1" style="border-bottom: 1px solid rgb(238, 10, 200);padding-bottom:10px;">
-                        <a href="{{ route('data.export','expiredRaawa') }}" class="btn btn-primary">
+                        <a href="{{ route('data.export_user','expiredRaawa') }}" class="btn btn-primary">
                             Export (Raawa)
                         </a>
                         <table class="table tablesorter" id="list_table">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="table-responsive" id="tb2" style="border-bottom: 1px solid rgb(238, 10, 200);padding-bottom:10px;">
                         <table class="table tablesorter" id="list_table2">
-                            <a href="{{ route('data.export','expiredSec') }}" class="btn btn-primary">
+                            <a href="{{ route('data.export_user','expiredSec') }}" class="btn btn-primary">
                                 Export (Sec ID)
                             </a>
                             <thead class=" text-primary">
@@ -121,7 +121,7 @@
             serverSide: true,
             pageLength: 20,
             lengthMenu: [20, 40, 60, 80, 100],
-            ajax: "{{ route('data.expired_raawa') }}",
+            ajax: "{{ route('data.expired_raawa_user') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'area', name: 'area'},
@@ -161,7 +161,7 @@
                     serverSide: true,
                     pageLength: 20,
                     lengthMenu: [20, 40, 60, 80, 100],
-                    ajax: "{{ route('data.expired_sec') }}",
+                    ajax: "{{ route('data.expired_sec_user') }}",
                     columns: [
                         {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                         {data: 'area', name: 'area'},

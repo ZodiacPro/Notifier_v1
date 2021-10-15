@@ -10,6 +10,7 @@ use DataTables;
 use DB;
 use App\Exports\DataExportSec;
 use App\Exports\DataExportRaawa;
+use Illuminate\Support\Facades\Auth;
 
 
 class DataManagementController extends Controller
@@ -68,7 +69,7 @@ class DataManagementController extends Controller
                     'online_raawa'          => $failure->values()[4],
                     'online_raawa_expired'  => $failure->values()[5],
                     'team'                  => $failure->values()[6],
-                    'token'                 => '0',
+                    'user_id'                 => Auth::user()->id,
                 ];
                 //update query
                 RaawaModel::where('name', $failure->values()[1])
@@ -120,6 +121,57 @@ class DataManagementController extends Controller
             }
     }
     public function export($id){
+        if($id == "expiredRaawa"){
+            return Excel::download(new DataExportRaawa, 'expiredRaawa.xlsx');
+        }
+        elseif($id == "expiredSec"){
+            return Excel::download(new DataExportSec, 'expiredSec.xlsx');
+        }
+        
+    }
+    public function expired_index_user(Request $request)
+    {
+        return view('raawa.expired_user');
+    }
+    public function expired_raawa_user(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = RaawaModel::select(DB::raw("*, datediff(now(),`online_raawa_expired`) as days_left, 'Raawa' as type"))
+                            ->where('online_raawa_expired','>',date('Y-m-d'))
+                            ->where('online_raawa_expired','<',date('Y-m-d', strtotime('14 days')))
+                            ->where('user_id', Auth::user()->id)
+                            ->orderBy('days_left','desc')
+                            ->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+        public function expired_sec_user(Request $request)
+        {
+            if ($request->ajax()) {
+                $data = RaawaModel::select(DB::raw("*, datediff(now(),`expired`) as days_left, 'Raawa' as type"))
+                                ->where('expired','>',date('Y-m-d'))
+                                ->where('expired','<',date('Y-m-d', strtotime('14 days')))
+                                ->where('user_id', Auth::user()->id)
+                                ->orderBy('days_left','desc')
+                                ->get();
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+    }
+    public function export_user($id){
         if($id == "expiredRaawa"){
             return Excel::download(new DataExportRaawa, 'expiredRaawa.xlsx');
         }

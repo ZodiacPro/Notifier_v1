@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Illuminate\Support\Facades\Auth;
 
 class DataImport implements ToModel, WithValidation, SkipsOnFailure
 {
@@ -21,14 +22,14 @@ class DataImport implements ToModel, WithValidation, SkipsOnFailure
     public function model(array $row)
     {
         return new RaawaModel([
-            'area'                  => $row[0],
+            'area'                  => strtoupper($row[0]),
             'name'                  => $row[1],
             'secID'                 => $row[2],
             'expired'               => $row[3],
             'online_raawa'          => $row[4],
             'online_raawa_expired'  => $row[5],
             'team'                  => $row[6],
-            'token'                 => '0',
+            'user_id'               => Auth::user()->id,
         ]);
     }
     public function rules(): array

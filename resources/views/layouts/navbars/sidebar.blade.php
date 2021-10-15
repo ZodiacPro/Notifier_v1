@@ -6,11 +6,40 @@
         </div>
         <ul class="nav">
             <!------------------- Dashboard -------------------->
-            <li @if ($pageSlug == 'dashboard') class="active " @endif>
-                <a href="{{ route('home') }}">
-                    <i class="tim-icons icon-chart-pie-36"></i>
-                    <p>{{ __('Dashboard') }}</p>
+            
+            <li>
+                <a data-toggle="collapse" href="#dashboardPage" aria-expanded="true">
+                    <i class="tim-icons icon-chart-pie-36" ></i>
+                    <span class="nav-link-text" >{{ __('Dashboard') }}</span>
+                    <b class="caret mt-1"></b>
                 </a>
+
+                <div class="collapse @if ($tab == 'dashboard') show  @endif" id="dashboardPage">
+                    <ul class="nav pl-4">
+                         <!--- -->
+                         <li @if ($pageSlug == 'dashboard') class="active " @endif>
+                            <a href="{{ route('home') }}">
+                                <i class="fas fa-quidditch"></i>
+                                <p>{{ __('Overall Dashboard') }}</p>
+                            </a>
+                        </li>
+                        <!--- -->
+                        <li @if ($pageSlug == 'dashboard_user') class="active " @endif>
+                            <a href="{{ route('home.user') }}">
+                                <i class="fas fa-dot-circle"></i>
+                                <p>{{ __('User Dashboard') }}</p>
+                            </a>
+                        </li>
+                         <!--- -->
+                         <li @if ($pageSlug == 'dashboard_area') class="active " @endif>
+                            <a href="{{ route('home.area') }}">
+                                <i class="fas fa-ship"></i>
+                                <p>{{ __('Area Dashboard') }}</p>
+                            </a>
+                        </li>
+                        <!--- -->
+                    </ul>
+                </div>
             </li>
             <!-------------------- Management Page --------------------->
             <li>
@@ -41,6 +70,13 @@
                             <a href="{{ route('data.expired')  }}">
                                 <i class="fas fa-archive"></i>
                                 <p>{{ __('Expired') }}</p>
+                            </a>
+                        </li>
+                        <!--- -->
+                        <li @if ($pageSlug == 'expired_user') class="active " @endif>
+                            <a href="{{ route('data.expired_user')  }}">
+                                <i class="fas fa-balance-scale"></i>
+                                <p>{{ __('Expired - User') }}</p>
                             </a>
                         </li>
                         <!--- -->
