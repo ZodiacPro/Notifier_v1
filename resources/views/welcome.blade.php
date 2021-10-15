@@ -8,7 +8,7 @@
                     <div class="col-lg-5 col-md-6">
                         <h1 class="text-white">{{ __('Welcome!') }}</h1>
                         <p class="text-lead text-light">
-                            {{ __('ZodiacPro - E-Formula Technology Inc.') }}
+                            {{ __('ZodiacPro - E-Formula Technologist Inc.') }}
                         </p>
                     </div>
                 </div>
