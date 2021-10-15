@@ -22,7 +22,9 @@ class CreateRawwa extends Migration
             $table->date('online_raawa')->nullable();
             $table->date('online_raawa_expired')->nullable();
             $table->string('team');
-            $table->integer('token');
+            //
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
