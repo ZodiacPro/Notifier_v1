@@ -17,10 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 Route::get('/dashboard-user', 'App\Http\Controllers\HomeController@user_dashboard')->name('home.user')->middleware('auth');
