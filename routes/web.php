@@ -23,6 +23,7 @@ Route::get('/registeradminr00t', 'App\Http\Controllers\Auth\RegisterController@s
 Route::post('register', 'Auth\AuthController@register')->name('register');
 
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
