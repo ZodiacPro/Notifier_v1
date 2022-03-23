@@ -2,35 +2,77 @@
 
 @section('content')
     <div class="row">
+        {{-- UPDATE RAAWA --}}
+        <div class="modal fade" id="raawa" tabindex="-1" role="dialog" aria-labelledby="Raawa" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="secHeader"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <form method="post" action="{{ route('raawa.update') }}">
+                    @csrf
+                    <label for="date">Date</label>
+                    <input class="form-control" type="text" name="id" id="id" style="color: black" hidden required/>
+                    <input class="form-control" type="date" name="date" id="date" style="color: black; font-weight: bold;" required />
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        {{-- UPDATE SEC --}}
+        <div class="modal fade" id="sec" tabindex="-1" role="dialog" aria-labelledby="Sec" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="secHeader"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <form method="post" action="{{ route('sec.update') }}">
+                    @csrf
+                    <label for="datesec">Date</label>
+                    <input class="form-control" type="text" name="id" id="idsec" style="color: black" hidden required/>
+                    <input class="form-control" type="date" name="date" id="datesec" style="color: black; font-weight: bold;" required />
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
         <div class="col-lg-12 col-md-12">
-            <div class="card "><br>
-                <div class="card-header"  style="border-bottom: 1px solid rgb(238, 10, 200);padding-bottom:10px;">
-                    <h4 class="card-title">Expired Data List</h4>
-                    <div class="col-sm-6">
-                        <div class="btn-group btn-group-toggle float-left" data-toggle="buttons">
-                        <label class="btn btn-sm btn-primary btn-simple active" id="0">
-                            <input type="radio" name="options" checked>
-                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">RAAWA</span>
-                            <span class="d-block d-sm-none">
-                                <i class="tim-icons icon-single-02"></i>
-                            </span>
-                        </label>
-                        <label class="btn btn-sm btn-primary btn-simple" id="1">
-                            <input type="radio" class="d-none d-sm-none" name="options">
-                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sec ID</span>
-                            <span class="d-block d-sm-none">
-                                <i class="tim-icons icon-gift-2"></i>
-                            </span>
-                        </label>
-                        </div>
+              <button hidden type="button" class="btn btn-primary btn-sm" id="raawabtn" data-toggle="modal" data-target="#raawa">
+                Raawa
+              </button>
+              <button hidden type="button" class="btn btn-primary btn-sm" id="secbtn" data-toggle="modal" data-target="#sec">
+                Sec
+              </button>
+            <button type="button" class="btn btn-success btn-sm" id="refresh">
+                Refresh
+            </button>
+            <div class="card ">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
                     </div>
-                    <br>
+                @endif
+                <div class="card-header">
+                    <h4 class="card-title">Expired Raawa List</h4>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive" id="tb1" style="border-bottom: 1px solid rgb(238, 10, 200);padding-bottom:10px;">
-                        <a href="{{ route('data.export','expiredRaawa') }}" class="btn btn-primary">
-                            Export (Raawa)
-                        </a>
+                    <div class="table-responsive">
                         <table class="table tablesorter" id="list_table">
                             <thead class=" text-primary">
                                 <tr>
@@ -38,56 +80,19 @@
                                         No
                                     </th>
                                     <th>
-                                        Area
-                                    </th>
-                                    <th>
                                         Name
                                     </th>
                                     <th>
-                                        SEC ID
-                                    </th>
-                                    <th class="text-center">
-                                        Expiration
-                                    </th>
-                                    <th class="text-center">
-                                        Online RAAWA
-                                    </th>
-                                    <th class="text-center">
-                                        Online RAAWA <br> Expiration
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="table-responsive" id="tb2" style="border-bottom: 1px solid rgb(238, 10, 200);padding-bottom:10px;">
-                        <table class="table tablesorter" id="list_table2">
-                            <a href="{{ route('data.export','expiredSec') }}" class="btn btn-primary">
-                                Export (Sec ID)
-                            </a>
-                            <thead class=" text-primary">
-                                <tr>
-                                    <th>
-                                        No
+                                        Sec ID
                                     </th>
                                     <th>
                                         Area
                                     </th>
                                     <th>
-                                        Name
+                                        Raawa Expired
                                     </th>
                                     <th>
-                                        SEC ID
-                                    </th>
-                                    <th class="text-center">
-                                        Expiration
-                                    </th>
-                                    <th class="text-center">
-                                        Online RAAWA
-                                    </th>
-                                    <th class="text-center">
-                                        Online RAAWA <br> Expiration
+                                        Action
                                     </th>
                                 </tr>
                             </thead>
@@ -108,84 +113,46 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        $(document).ready(function() {
-        var c = 0;
+    $(document).ready(function() {
         $.ajaxSetup({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        //    
-            var table = $('#list_table').DataTable({
-            processing: true,
-            serverSide: true,
-            pageLength: 20,
-            lengthMenu: [20, 40, 60, 80, 100],
-            ajax: "{{ route('data.expired_raawa') }}",
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'area', name: 'area'},
-                {data: 'name', name: 'name'},
-                {data: 'secID', name: 'secID'},
-                {
-                    data: 'expired',
-                    name: 'expired',
-                    className: 'text-center'
-                },
-                {
-                    data: 'online_raawa',
-                    name: 'online_raawa',
-                    className: 'text-center'
-                },
-                {
-                    data: 'online_raawa_expired',
-                    name: 'online_raawa_expired',
-                    className: 'text-center'},
-            ]
+        $('#refresh').click(function(){
+            var table = $('#list_table').DataTable();
+                table.destroy();
+            $('#list_table').DataTable({
+                processing: true,
+                serverSide: true,
+                pageLength: 20,
+                lengthMenu: [20, 40, 60, 80, 100],
+                dom: 'Bfrtip',
+                buttons: [
+                    { "extend": 'excel', "text":'Export',"className": 'btn btn-md btn-success' },
+                ],
+                ajax: "{{ route('data.expired') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'name', name: 'name'},
+                    {data: 'secID', name: 'secID'},
+                    {data: 'area', name: 'area'},
+                    {data: 'raawa', name: 'raawa'},
+                    {data: 'action', name: 'action', width: 400},
+                ]
+            });
         });
-        //
-        
-        //
-        $("#0").click(function() {
-            $("#tb2").hide();
-            $("#tb1").show();
-        });
-        $("#0").click();
-        //
-        $("#1").click(function() {
-            $("#tb1").hide();
-            $("#tb2").show();
-            if(c == 0){
-                var table = $('#list_table2').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    pageLength: 20,
-                    lengthMenu: [20, 40, 60, 80, 100],
-                    ajax: "{{ route('data.expired_sec') }}",
-                    columns: [
-                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                        {data: 'area', name: 'area'},
-                        {data: 'name', name: 'name'},
-                        {data: 'secID', name: 'secID'},
-                        {
-                            data: 'expired',
-                            name: 'expired',
-                            className: 'text-center'
-                        },
-                        {
-                            data: 'online_raawa',
-                            name: 'online_raawa',
-                            className: 'text-center'
-                        },
-                        {
-                            data: 'online_raawa_expired',
-                            name: 'online_raawa_expired',
-                            className: 'text-center'},
-                    ],
-                });
-                c = c + 1;
-            }
-        });
-        //
-        });
+        // 
+        $('#refresh').click();
+        // 
+    });
+    //
+    function raawa(id){
+      $('#raawabtn').click();
+      $('#id').val(id);
+    }
+    function sec(id){
+      $('#secbtn').click();
+      $('#idsec').val(id);
+    }
     </script>

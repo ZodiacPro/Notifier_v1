@@ -43,7 +43,7 @@
             <div class="card card-chart">
                 <div class="card-header">
                     <h5 class="card-category">Total no of Active Item</h5>
-                    <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i>{{$secSum}}</h3>
+                    <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i>{{$sumActive}}</h3>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
@@ -80,74 +80,88 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-6 col-md-6">
             <div class="card ">
                 <div class="card-header">
-                    <h4 class="card-title">Notification Table</h4>
+                    <h4 class="card-title">Raawa to Expired</h4>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table tablesorter" id="">
-                            <thead class=" text-primary">
-                                <tr>
-                                    <th>
-                                        Area
-                                    </th>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Type
-                                    </th>
-                                    <th class="text-center">
-                                        Expiration
-                                    </th>
-                                    <th class="text-center">
-                                        Days Left
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($notifraawa as $notifraawaitem);
-                                <tr>
-                                    <td>
-                                        {{$notifraawaitem->area}}
-                                    </td>
-                                    <td>
-                                        {{$notifraawaitem->name}}
-                                    </td>
-                                    <td>
-                                        {{$notifraawaitem->type}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{$notifraawaitem->online_raawa_expired}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{$notifraawaitem->days_left}}
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @foreach($notifsec as $notifsecitem);
-                                <tr>
-                                    <td>
-                                        {{$notifsecitem->area}}
-                                    </td>
-                                    <td>
-                                        {{$notifsecitem->name}}
-                                    </td>
-                                    <td>
-                                        {{$notifsecitem->type}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{$notifsecitem->expired}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{$notifsecitem->days_left}}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table tablesorter" id="">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th>
+                                                Area
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th class="text-center">
+                                                Expiration
+                                            </th>
+                                            <th class="text-center">
+                                                Days Left
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($notifraawa as $notifraawaitem)
+                                        <tr>
+                                            <td>{{$notifraawaitem->area_name}}</td>
+                                            <td>{{$notifraawaitem->user_name}}</td>
+                                            <td class="text-center">{{date_format(date_create($notifraawaitem->expired),"M d Y")}}</td>
+                                            <td class="text-center">{{date_diff(date_create(date("Y-m-d")),date_create($notifraawaitem->expired))->format("%a day/s left")}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-title">Sec to Expired</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table tablesorter" id="">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th>
+                                                Area
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th class="text-center">
+                                                Expiration
+                                            </th>
+                                            <th class="text-center">
+                                                Days Left
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($notifsec as $notifsecitem)
+                                        <tr>
+                                            <td>{{$notifsecitem->area_name}}</td>
+                                            <td>{{$notifsecitem->user_name}}</td>
+                                            <td class="text-center">{{date_format(date_create($notifsecitem->expired),"M d Y")}}</td>
+                                            <td class="text-center">{{date_diff(date_create(date("Y-m-d")),date_create($notifsecitem->expired))->format("%a day/s left")}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

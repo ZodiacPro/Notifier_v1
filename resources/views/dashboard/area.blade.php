@@ -128,22 +128,11 @@
                     <div class="card-header">
                         <h5 class="card-category">Choose Area</h5>
                         <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i></h3>
-                        <a href="{{ route('home.area_main','NCR') }}" class="btn btn-primary">
-                            NCR
+                        @foreach ($area as $areas)
+                        <a href="{{ route('home.area_main',$areas->id) }}" class="btn btn-primary">
+                            {{$areas->name}}
                         </a>
-                        <br>
-                        <a href="{{ route('home.area_main','NLZ') }}" class="btn btn-primary">
-                            North Luzon
-                        </a>
-                        <a href="{{ route('home.area_main','SLZ') }}" class="btn btn-primary">
-                            South Luzon
-                        </a>
-                        <a href="{{ route('home.area_main','VIS') }}" class="btn btn-primary">
-                            Visayas
-                        </a>
-                        <a href="{{ route('home.area_main','MIN') }}" class="btn btn-primary">
-                            Mindanao
-                        </a>
+                        @endforeach
                     </div>
                     <div class="card-body">
                         <div class="chart-area">

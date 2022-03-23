@@ -11,6 +11,7 @@ use DB;
 use App\Exports\DataExportSec;
 use App\Exports\DataExportRaawa;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AreaModel;
 
 
 class DataManagementController extends Controller
@@ -179,5 +180,26 @@ class DataManagementController extends Controller
             return Excel::download(new DataExportSec, 'expiredSec.xlsx');
         }
         
+    }
+    // Area
+    public function area(Request $request){
+        if ($request->ajax()) {
+            $data = AreaModel::get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('raawa.area');
+    }
+    public function create_area(Request $request){
+        AreaModel::create([
+            'name' => $request->name,
+        ]);
+        return redirect('area')->with('status', 'Created!');
     }
 }

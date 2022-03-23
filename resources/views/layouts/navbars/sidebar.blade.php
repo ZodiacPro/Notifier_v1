@@ -24,12 +24,12 @@
                             </a>
                         </li>
                         <!--- -->
-                        <li @if ($pageSlug == 'dashboard_user') class="active " @endif>
+                        {{-- <li @if ($pageSlug == 'dashboard_user') class="active " @endif>
                             <a href="{{ route('home.user') }}">
                                 <i class="fas fa-dot-circle"></i>
                                 <p>{{ __('User Dashboard') }}</p>
                             </a>
-                        </li>
+                        </li> --}}
                          <!--- -->
                          <li @if ($pageSlug == 'dashboard_area') class="active " @endif>
                             <a href="{{ route('home.area') }}">
@@ -51,32 +51,32 @@
 
                 <div class="collapse @if ($tab == 'data') show  @endif" id="managementPage">
                     <ul class="nav pl-4">
-                         <!--- -->
-                        <li @if ($pageSlug == 'list') class="active " @endif>
-                            <a href="{{ route('data.list')  }}">
+                        <!--- -->
+                        <li @if ($pageSlug == 'area') class="active " @endif>
+                            <a href="{{ route('data.area')  }}">
                                 <i class="far fa-keyboard"></i>
-                                <p>{{ __('List') }}</p>
+                                <p>{{ __('Area') }}</p>
                             </a>
                         </li>
                         <!--- -->
-                        <li @if ($pageSlug == 'upload') class="active " @endif>
-                            <a href="{{ route('data.upload')  }}">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>{{ __('Upload File') }}</p>
+                        <li @if ($pageSlug == 'users') class="active " @endif>
+                            <a href="{{ route('raawa.user')  }}">
+                                <i class="far fa-keyboard"></i>
+                                <p>{{ __('Field Employee') }}</p>
                             </a>
                         </li>
                          <!--- -->
                         <li @if ($pageSlug == 'expired') class="active " @endif>
                             <a href="{{ route('data.expired')  }}">
                                 <i class="fas fa-archive"></i>
-                                <p>{{ __('Expired') }}</p>
+                                <p>{{ __('Expired Raawa') }}</p>
                             </a>
                         </li>
                         <!--- -->
-                        <li @if ($pageSlug == 'expired_user') class="active " @endif>
+                        <li @if ($pageSlug == 'expired_sec') class="active " @endif>
                             <a href="{{ route('data.expired_user')  }}">
                                 <i class="fas fa-balance-scale"></i>
-                                <p>{{ __('Expired - User') }}</p>
+                                <p>{{ __('Expired Sec ID') }}</p>
                             </a>
                         </li>
                         <!--- -->

@@ -17,10 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false]);
-
-Route::get('/registeradminr00t', 'App\Http\Controllers\Auth\RegisterController@showRegistrationForm');
-Route::post('register', 'Auth\AuthController@register')->name('register');
+Auth::routes(['register' => true]);
 
 
 
@@ -51,10 +48,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('list', ['as' => 'data.list', 'uses' => 'App\Http\Controllers\DataManagementController@index']);
+	Route::post('list', ['as' => 'data.list', 'uses' => 'App\Http\Controllers\DataManagementController@index']);
+	Route::get('area', ['as' => 'data.area', 'uses' => 'App\Http\Controllers\DataManagementController@area']);
+	Route::post('area/create', ['as' => 'data.area_create', 'uses' => 'App\Http\Controllers\DataManagementController@create_area']);
 	Route::get('ajaxlist', ['as' => 'data.ajaxlist', 'uses' => 'App\Http\Controllers\DataManagementController@data_list']);
 	Route::get('upload', ['as' => 'data.upload', 'uses' => 'App\Http\Controllers\DataManagementController@upload_index']);
 	Route::post('uploadfile', ['as' => 'data.uploadfile', 'uses' => 'App\Http\Controllers\DataManagementController@upload_file']);
-	Route::get('expired', ['as' => 'data.expired', 'uses' => 'App\Http\Controllers\DataManagementController@expired_index']);
 	Route::get('expired_raawa', ['as' => 'data.expired_raawa', 'uses' => 'App\Http\Controllers\DataManagementController@expired_raawa']);
 	Route::get('expired_sec', ['as' => 'data.expired_sec', 'uses' => 'App\Http\Controllers\DataManagementController@expired_sec']);
 	Route::get('export/{id}', ['as' => 'data.export', 'uses' => 'App\Http\Controllers\DataManagementController@export']);
@@ -64,5 +63,18 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('expired_sec/user', ['as' => 'data.expired_sec_user', 'uses' => 'App\Http\Controllers\DataManagementController@expired_sec_user']);
 	Route::get('export/user/{id}', ['as' => 'data.export_user', 'uses' => 'App\Http\Controllers\DataManagementController@export_user']);
 
+});
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('raawa_user', ['as' => 'raawa.user', 'uses' => 'App\Http\Controllers\RaawaUserController@raawa_user']);
+	Route::post('raawa_user', ['as' => 'raawa.user', 'uses' => 'App\Http\Controllers\RaawaUserController@raawa_user']);
+	Route::post('user_create', ['as' => 'raawa.user_create', 'uses' => 'App\Http\Controllers\RaawaUserController@create_user']);
+	Route::post('user_update', ['as' => 'raawa.user_update', 'uses' => 'App\Http\Controllers\RaawaUserController@update_user']);
+	Route::post('update_raawa', ['as' => 'raawa.update', 'uses' => 'App\Http\Controllers\RaawaUserController@update_raawa']);
+	Route::post('update_sec', ['as' => 'sec.update', 'uses' => 'App\Http\Controllers\RaawaUserController@update_sec']);
+	Route::get('expired', ['as' => 'data.expired', 'uses' => 'App\Http\Controllers\RaawaUserController@expired']);
+	Route::post('expired', ['as' => 'data.expired', 'uses' => 'App\Http\Controllers\RaawaUserController@expired']);
+	Route::get('sec_expired', ['as' => 'data.expired.sec', 'uses' => 'App\Http\Controllers\RaawaUserController@expired_sec']);
+	Route::post('sec_expired', ['as' => 'data.expired.sec', 'uses' => 'App\Http\Controllers\RaawaUserController@expired_sec']);
 });
 
