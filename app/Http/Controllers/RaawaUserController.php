@@ -90,7 +90,7 @@ class RaawaUserController extends Controller
         // $test = DB::table('raawa_log')->join('raawa_user','raawa_user.id','=','raawa_log.rawwa_user_id')->whereRaw('raawa_log.id In (SELECT MAX(id) FROM raawa_log GROUP BY rawwa_user_id)')->get();
         // dd(date("Y-m-d"));
         if ($request->ajax()) {
-            $data = DB::table('raawa_log')->join('raawa_user','raawa_user.id','=','raawa_log.rawwa_user_id')->whereRaw('raawa_log.id In (SELECT MAX(id) FROM raawa_log GROUP BY rawwa_user_id)')->where('raawa_log.expired','<',date("Y-m-d"))->get();
+            $data = DB::table('raawa_log')->join('raawa_user','raawa_user.id','=','raawa_log.rawwa_user_id')->whereRaw('raawa_log.id In (SELECT MAX(id) FROM raawa_log GROUP BY rawwa_user_id)')->where('raawa_log.expired','<',date('Y-m-d', strtotime('14 days')))->orderBy('raawa_log.expired','desc')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
@@ -129,7 +129,7 @@ class RaawaUserController extends Controller
         // $test = DB::table('raawa_log')->join('raawa_user','raawa_user.id','=','raawa_log.rawwa_user_id')->whereRaw('raawa_log.id In (SELECT MAX(id) FROM raawa_log GROUP BY rawwa_user_id)')->get();
         // dd(date("Y-m-d"));
         if ($request->ajax()) {
-            $data = DB::table('sec_log')->join('raawa_user','raawa_user.id','=','sec_log.rawwa_user_id')->whereRaw('sec_log.id In (SELECT MAX(id) FROM sec_log GROUP BY rawwa_user_id)')->where('sec_log.expired','<',date("Y-m-d"))->get();
+            $data = DB::table('sec_log')->join('raawa_user','raawa_user.id','=','sec_log.rawwa_user_id')->whereRaw('sec_log.id In (SELECT MAX(id) FROM sec_log GROUP BY rawwa_user_id)')->where('sec_log.expired','<',date('Y-m-d', strtotime('30 days')))->orderBy('sec_log.expired','desc')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
