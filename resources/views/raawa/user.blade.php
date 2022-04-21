@@ -256,10 +256,11 @@
                 table.destroy();
             $('#list_table').DataTable({
                 processing: true,
-                serverSide: true,
-                pageLength: 20,
-                lengthMenu: [20, 40, 60, 80, 100],
-                dom: 'Bfrtip',
+                serverSide: false,
+                paging: true,
+                pageLength: 50,
+                lengthMenu: [5,10,25,50,100,500,1000],
+                dom: 'Blfrtp',
                 buttons: [
                     { "extend": 'excel', "text":'Export',"className": 'btn btn-md btn-success' },
                 ],
