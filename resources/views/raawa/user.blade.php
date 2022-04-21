@@ -118,6 +118,43 @@
             </div>
             </div>
         </div>
+        {{-- Delete User --}}
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteHeader"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <form method="post" action="{{ route('raawa.user_delete') }}">
+                    @csrf
+                    <div class="text-center">
+                        <h1 class="text-dark">
+                            <span>
+                                <i class="tim-icons icon-alert-circle-exc text-danger"></i>
+                            </span>
+                            Are you sure?<br><br>
+                            <span>
+                                <h6 class="text-dark">
+                            Do you really want to delete these records? This process cannot be undone.
+                                </h6>
+                            </span>
+                        </h1>
+                    
+                    <input class="form-control" type="text" name="id" id="iddelete" style="color: black; display:none;" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
         <div class="col-lg-12 col-md-12">
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addArea">
                 Add Employee
@@ -131,17 +168,37 @@
               <button hidden type="button" class="btn btn-primary btn-sm" id="secbtn" data-toggle="modal" data-target="#sec">
                 Sec
               </button>
+            </button>
+            <button hidden type="button" class="btn btn-primary btn-sm" id="delbtn" data-toggle="modal" data-target="#delete">
+              Delete
+            </button>
             <button type="button" class="btn btn-success btn-sm" id="refresh">
                 Refresh
             </button>
-            <div class="card ">
+            <div class="card">
                 @if (session('status'))
                     <div class="alert alert-success">
                         {{ session('status') }}
                     </div>
                 @endif
                 <div class="card-header">
-                    <h4 class="card-title">Employee List</h4>
+                    <div class="row">
+                        <div class="col-6">
+                        <h4 class="card-title">Employee List</h4>
+                        </div>
+                        <div class="col-6 text-right">
+                            <form action="{{route('import')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <label class="custom-file-upload btn btn-success btn-sm">
+                                    <input type="file" id="file" name="file" style="display:none;"/>
+                                    <i class="fa fa-cloud-upload"></i> Mass Registration
+                                </label>
+                                <a href="{{route('template')}}" class="btn btn-outline-secondary btn-sm">Template</a>
+                                <button type="submit" id="submit" style="display: none">Submit</button>
+                            </form>
+                            <a href="#" id="proceed" class="btn btn-sm btn-primary" hidden>Reload</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -220,6 +277,9 @@
         });
         // 
         $('#refresh').click();
+        $('#file').change(function(){
+                $('#submit').click();
+            })
         // 
     });
     //
@@ -237,5 +297,9 @@
     function sec(id){
       $('#secbtn').click();
       $('#idsec').val(id);
+    }
+    function del(id){
+      $('#delbtn').click();
+      $('#iddelete').val(id);
     }
     </script>

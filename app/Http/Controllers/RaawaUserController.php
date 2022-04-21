@@ -9,7 +9,11 @@ use App\Models\AreaModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SecLogModel;
 use App\Models\RaawaLogModel;
+use App\Models\auditModel;
 use DB;
+use App\Imports\DataImport;
+use Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RaawaUserController extends Controller
 {
@@ -22,11 +26,16 @@ class RaawaUserController extends Controller
                     $actionBtn = '<button type="button" class="btn btn-secondary btn-sm" onclick="update('.$row->id.', '."'".$row->name."'".', '."'".$row->secID."'".','.$row->area_id.')">Edit</button>';
                     $actionBtn = $actionBtn.'&nbsp;<button type="button" class="btn btn-primary btn-sm" onclick="raawa('.$row->id.')">Raawa</button>';
                     $actionBtn = $actionBtn.'&nbsp; <button type="button" class="btn btn-primary btn-sm" onclick="sec('.$row->id.')">Sec</button>';
+                    $actionBtn = $actionBtn.'&nbsp; <button type="button" class="btn btn-danger btn-sm" onclick="del('.$row->id.')">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('area', function($row){
+                    $areaname = "No Data";
                     $area = AreaModel::where('id', $row->area_id)->first();
-                    return $area->name;
+                    if($area !== null){
+                        $areaname = $area->name;
+                    }
+                    return $areaname;
                 })
                 ->addColumn('sec', function($row){
                     $secExpired = "No Data";
@@ -71,6 +80,21 @@ class RaawaUserController extends Controller
         RaawaUserModel::where('id', $request->id)
                         ->update($formdata);
         return redirect('raawa_user')->with('status', 'Updated!');
+    }
+    public function delete_user(Request $request){
+        
+        $data = RaawaUserModel::where('id', $request->id)->first();
+        auditModel::create([
+            'details' => 'Deleted raawa user "'.$data->name.'" by "'.Auth::user()->name.'"',
+            'user_id' => Auth::user()->id,
+        ]);
+        RaawaLogModel::where('rawwa_user_id',$request->id)
+                    ->delete();
+        SecLogModel::where('rawwa_user_id',$request->id)
+                    ->delete();
+        RaawaUserModel::where('id', $request->id)
+                        ->delete();
+        return redirect('raawa_user')->with('status', 'Deleted!');
     }
     public function update_raawa(Request $request){
         RaawaLogModel::create([
@@ -154,5 +178,21 @@ class RaawaUserController extends Controller
         }
         $areas = AreaModel::get();
         return view("raawa.expired_user",compact('areas'));
+    }
+    public function import(Request $request)
+    {
+        if($request->hasFile('file')){
+            try {
+                Excel::import(new DataImport, $request->file('file'));
+            }
+            catch (QueryException $e) {
+                return back()->with('failed','Error Uploading File, Please check file data!');
+            }
+        }
+        return back()->with('success','Registered!');
+    }
+    public function downloadtemplate(){
+        $filepath = public_path('temp/template.xlsx');
+        return Response::download($filepath);
     }
 }

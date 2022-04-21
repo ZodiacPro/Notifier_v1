@@ -10,10 +10,10 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Support\Facades\Auth;
+use App\Models\RaawaUserModel;
 
-class DataImport implements ToModel, WithValidation, SkipsOnFailure
+class DataImport implements ToModel
 {
-    use Importable, SkipsFailures;
     /**
     * @param array $row
     *
@@ -21,34 +21,19 @@ class DataImport implements ToModel, WithValidation, SkipsOnFailure
     */
     public function model(array $row)
     {
-        return new RaawaModel([
-            'area'                  => strtoupper($row[0]),
-            'name'                  => $row[1],
-            'secID'                 => $row[2],
-            'expired'               => $row[3],
-            'online_raawa'          => $row[4],
-            'online_raawa_expired'  => $row[5],
-            'team'                  => $row[6],
+        if($row[0] == 'Name' || $row[0] == 'NAME' || $row[0] == 'name'){
+            return;
+        }
+        $data = RaawaUserModel::where('name', $row[0])->first();
+        if($data !== NULL){
+            return;
+        }
+        return new RaawaUserModel([
+            'name'                  => $row[0],
+            'secID'                 => $row[1],
+            'area_id'               => $row[2],
             'user_id'               => Auth::user()->id,
         ]);
-    }
-    public function rules(): array
-    {
         
-        return [
-             '1' => function($attribute, $value, $onFailure) {
-                $list = RaawaModel::get();
-                 foreach($list as $listItem){
-                    if (strtoupper($value) === strtoupper($listItem->name)) {
-                        $onFailure('clone');
-                   }
-                 }
-              },
-              '3' => 'date',
-              '4' => 'date',
-              '5' => 'date',
-        ];
     }
-    
-    
 }
