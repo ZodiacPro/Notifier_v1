@@ -85,7 +85,7 @@
             lengthMenu: [20, 40, 60, 80, 100],
             ajax: "{{ route('data.area') }}",
             columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
                 {data: 'action', name: 'action'},
             ]
