@@ -9,7 +9,7 @@ class RaawaApiController extends Controller
 {
     public function expiredRaawaAPI(){
         $data = DB::table('raawa_log')
-                ->selectRaw('raawa_user.id as id, expired, area.name as area_name, secID')
+                ->selectRaw('raawa_user.id as id,raawa_user.name as name, expired, area.name as area_name, secID')
                 ->join('raawa_user','raawa_user.id','=','raawa_log.rawwa_user_id')
                 ->join('area','area.id','raawa_user.area_id')
                 ->whereRaw('raawa_log.id In (SELECT MAX(id) FROM raawa_log GROUP BY rawwa_user_id)')
@@ -21,7 +21,7 @@ class RaawaApiController extends Controller
     }
     public function expiredRaawa7daysAPI(){
         $data = DB::table('raawa_log')
-                ->selectRaw('raawa_user.id as id, expired, area.name as area_name, secID')
+                ->selectRaw('raawa_user.id as id,raawa_user.name as name, expired, area.name as area_name, secID')
                 ->join('raawa_user','raawa_user.id','=','raawa_log.rawwa_user_id')
                 ->join('area','area.id','raawa_user.area_id')
                 ->whereRaw('raawa_log.id In (SELECT MAX(id) FROM raawa_log GROUP BY rawwa_user_id)')
@@ -34,7 +34,7 @@ class RaawaApiController extends Controller
     }
     public function expiredSecAPI(){
         $data = DB::table('sec_log')
-                ->selectRaw('raawa_user.id as id, expired, area.name as area_name, secID')
+                ->selectRaw('raawa_user.id as id,raawa_user.name as name, expired, area.name as area_name, secID')
                 ->join('raawa_user','raawa_user.id','=','sec_log.rawwa_user_id')
                 ->join('area','area.id','raawa_user.area_id')
                 ->whereRaw('sec_log.id In (SELECT MAX(id) FROM sec_log GROUP BY rawwa_user_id)')
@@ -46,7 +46,7 @@ class RaawaApiController extends Controller
     }
     public function expiredSec30daysAPI(){
         $data = DB::table('sec_log')
-                ->selectRaw('raawa_user.id as id, expired, area.name as area_name, secID')
+                ->selectRaw('raawa_user.id as id,raawa_user.name as name, expired, area.name as area_name, secID')
                 ->join('raawa_user','raawa_user.id','=','sec_log.rawwa_user_id')
                 ->join('area','area.id','raawa_user.area_id')
                 ->whereRaw('sec_log.id In (SELECT MAX(id) FROM sec_log GROUP BY rawwa_user_id)')
