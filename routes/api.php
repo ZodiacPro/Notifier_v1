@@ -15,3 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('raawa-api', 'App\Http\Controllers\RaawaApiController@expiredRaawaAPI');
+Route::get('raawa-api7days', 'App\Http\Controllers\RaawaApiController@expiredRaawa7daysAPI');
+Route::get('sec-api', 'App\Http\Controllers\RaawaApiController@expiredSecAPI');
+Route::get('sec-api30days', 'App\Http\Controllers\RaawaApiController@expiredSec30daysAPI');
