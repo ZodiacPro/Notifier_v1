@@ -98,4 +98,9 @@ class RaawaApiController extends Controller
         ];
         return response()->json($data, 200);
     }
+    public function bot_user_list(Request $request){
+
+        $data = botuserModel::get();
+        return response()->json($data, 200);
+    }
 }
