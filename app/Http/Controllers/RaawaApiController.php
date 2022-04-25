@@ -81,4 +81,11 @@ class RaawaApiController extends Controller
 
         return response()->json($data, 200);
     }
+    public function bot_user(Request $request){
+
+        $data = [
+            'user' => $request->sender_id,
+        ];
+        return response()->json($data, 200);
+    }
 }

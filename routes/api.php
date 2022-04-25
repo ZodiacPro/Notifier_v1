@@ -20,3 +20,4 @@ Route::get('sec-api', 'App\Http\Controllers\RaawaApiController@expiredSecAPI');
 Route::get('sec-api30days', 'App\Http\Controllers\RaawaApiController@expiredSec30daysAPI');
 Route::get('sec-active', 'App\Http\Controllers\RaawaApiController@secActive');
 Route::get('raawa-active', 'App\Http\Controllers\RaawaApiController@raawaActive');
+Route::post('bot-user', 'App\Http\Controllers\RaawaApiController@bot_user');
