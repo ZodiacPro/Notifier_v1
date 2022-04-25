@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Models\botuserModel;
 
 class RaawaApiController extends Controller
 {
@@ -82,6 +83,15 @@ class RaawaApiController extends Controller
         return response()->json($data, 200);
     }
     public function bot_user(Request $request){
+
+        $check = botuserModel::where('sender_id', $request->sender_id)->first();
+        
+        if($check == null){
+            botuserModel::create([
+                'sender_id' => $request->sender_id,
+                'status'    => 0,
+            ]);
+        }
 
         $data = [
             'user' => $request->sender_id,
