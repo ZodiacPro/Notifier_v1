@@ -83,7 +83,7 @@
         <div class="col-lg-6 col-md-6">
             <div class="card ">
                 <div class="card-header">
-                    <h4 class="card-title">Raawa to Expired</h4>
+                    <h4 class="card-title">Raawa to Expire</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -126,7 +126,7 @@
         <div class="col-lg-6 col-md-6">
             <div class="card ">
                 <div class="card-header">
-                    <h4 class="card-title">Sec to Expired</h4>
+                    <h4 class="card-title">Sec to Expire</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
