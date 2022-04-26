@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','admin']], function () {
 	Route::get('raawa_user', ['as' => 'raawa.user', 'uses' => 'App\Http\Controllers\RaawaUserController@raawa_user']);
 	Route::post('raawa_user', ['as' => 'raawa.user', 'uses' => 'App\Http\Controllers\RaawaUserController@raawa_user']);
 	Route::post('user_create', ['as' => 'raawa.user_create', 'uses' => 'App\Http\Controllers\RaawaUserController@create_user']);

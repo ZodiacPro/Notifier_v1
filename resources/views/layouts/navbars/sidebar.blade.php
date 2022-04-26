@@ -43,7 +43,7 @@
             </li>
             <!-------------------- Management Page --------------------->
             <li>
-                <a data-toggle="collapse" href="#managementPage" aria-expanded="true">
+                <a data-toggle="collapse" href="#managementPage" aria-expanded="true" @if(Auth::user()->type == 0) style="display:none"@endif>
                     <i class="fa fa-microchip" ></i>
                     <span class="nav-link-text" >{{ __('Data Management') }}</span>
                     <b class="caret mt-1"></b>
