@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table tablesorter" id="list_table">
+                        <table class="display nowrap" id="list_table">
                             <thead class=" text-primary">
                                 <tr>
                                     <th>

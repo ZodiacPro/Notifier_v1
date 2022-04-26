@@ -73,7 +73,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table tablesorter" id="list_table">
+                        <table class="display nowrap" id="list_table">
                             <thead class=" text-primary">
                                 <tr>
                                     <th>
@@ -127,7 +127,7 @@
                 serverSide: true,
                 pageLength: 20,
                 lengthMenu: [20, 40, 60, 80, 100],
-                dom: 'Bfrtip',
+                dom: 'Blfrtp',
                 buttons: [
                     { "extend": 'excel', "text":'Export',"className": 'btn btn-md btn-success' },
                 ],
