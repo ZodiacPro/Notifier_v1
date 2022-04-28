@@ -89,6 +89,7 @@ class RaawaApiController extends Controller
         if($check == null){
             botuserModel::create([
                 'sender_id' => $request->sender_id,
+                'vibername' => $request->sender_name,
                 'status'    => 0,
             ]);
         }

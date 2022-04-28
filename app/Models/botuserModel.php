@@ -14,6 +14,7 @@ class botuserModel extends Model
 
     protected $fillable = [
         'sender_id',
+        'vibername',
         'status',
     ];
 }
