@@ -183,20 +183,66 @@
                 @endif
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6">
                         <h4 class="card-title">Employee List</h4>
+                        <a href="#" id="proceed" class="btn btn-sm btn-primary" hidden>Reload</a>
                         </div>
-                        <div class="col-6 text-right">
-                            <form action="{{route('import')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <label class="custom-file-upload btn btn-success btn-sm">
-                                    <input type="file" id="file" name="file" style="display:none;"/>
-                                    <i class="fa fa-cloud-upload"></i> Mass Registration
-                                </label>
-                                <a href="{{route('template')}}" class="btn btn-outline-secondary btn-sm">Template</a>
-                                <button type="submit" id="submit" style="display: none">Submit</button>
-                            </form>
-                            <a href="#" id="proceed" class="btn btn-sm btn-primary" hidden>Reload</a>
+                        <div class="col-md-6 text-right">
+                                <a class="btn btn-outline-primary btn-lg" data-toggle="collapse" href="#data" role="button" aria-expanded="false" aria-controls="data">
+                                    <i class="fas fa-cogs"></i>
+                                </a>
+                              <div class="collapse" id="data">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    Template
+                                                </div>
+                                                <div class="card-body">
+                                                    <a href="{{route('template')}}" class="btn btn-outline-secondary btn-sm btn-block">User</a>
+                                                    <a href="{{route('template.expired')}}" class="btn btn-outline-secondary btn-sm btn-block">Raawa</a>
+                                                    <a href="{{route('template.expired')}}" class="btn btn-outline-secondary btn-sm btn-block">Sec</a>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    Mass Entry
+                                                </div>
+                                                <div class="card-body">
+                                                    <form action="{{route('import')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <label class="custom-file-upload btn btn-success btn-sm btn-block">
+                                                            <input type="file" id="file" name="file" style="display:none;"/>
+                                                            <i class="fa fa-cloud-upload"></i> Mass Registration
+                                                        </label>
+                                                        <button type="submit" id="submit" style="display: none">Submit</button>
+                                                    </form>
+                                                    <form action="{{route('import.raawa')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <label class="custom-file-upload btn btn-success btn-sm btn-block">
+                                                            <input type="file" id="fileraawa" name="file" style="display:none;"/>
+                                                            <i class="fa fa-cloud-upload"></i> Mass Raawa
+                                                        </label>
+                                                        <button type="submit" id="submitraawa" style="display: none">Submit</button>
+                                                    </form>
+                                                    <form action="{{route('import.sec')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <label class="custom-file-upload btn btn-success btn-sm btn-block">
+                                                            <input type="file" id="filesec" name="file" style="display:none;"/>
+                                                            <i class="fa fa-cloud-upload"></i> Mass Sec
+                                                        </label>
+                                                        <button type="submit" id="submitsec" style="display: none">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
                         </div>
                     </div>
                 </div>
@@ -282,6 +328,12 @@
         $('#file').change(function(){
                 $('#submit').click();
             })
+        $('#fileraawa').change(function(){
+            $('#submitraawa').click();
+        })
+        $('#filesec').change(function(){
+            $('#submitsec').click();
+        })
         // 
     });
     //

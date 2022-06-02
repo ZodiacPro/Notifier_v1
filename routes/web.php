@@ -79,5 +79,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
 	Route::post('sec_expired', ['as' => 'data.expired.sec', 'uses' => 'App\Http\Controllers\RaawaUserController@expired_sec']);
 	Route::post('import', ['as' => 'import', 'uses' => 'App\Http\Controllers\RaawaUserController@import']);
 	Route::get('template', ['as' => 'template', 'uses' => 'App\Http\Controllers\RaawaUserController@downloadtemplate']);
+	Route::get('template-expired', ['as' => 'template.expired', 'uses' => 'App\Http\Controllers\RaawaUserController@downloadtemplate1']);
+	Route::post('importraawa', ['as' => 'import.raawa', 'uses' => 'App\Http\Controllers\RaawaUserController@importraawa']);
+	Route::post('importsec', ['as' => 'import.sec', 'uses' => 'App\Http\Controllers\RaawaUserController@importsec']);
 });
 

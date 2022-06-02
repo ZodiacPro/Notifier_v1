@@ -12,6 +12,8 @@ use App\Models\RaawaLogModel;
 use App\Models\auditModel;
 use DB;
 use App\Imports\DataImport;
+use App\Imports\raawaImport;
+use App\Imports\secImport;
 use Response;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -194,5 +196,33 @@ class RaawaUserController extends Controller
     public function downloadtemplate(){
         $filepath = public_path('temp/template.xlsx');
         return Response::download($filepath);
+    }
+    public function downloadtemplate1(){
+        $filepath = public_path('temp/template-expiration.xlsx');
+        return Response::download($filepath);
+    }
+    public function importraawa(Request $request)
+    {
+        if($request->hasFile('file')){
+            try {
+                Excel::import(new raawaImport, $request->file('file'));
+            }
+            catch (QueryException $e) {
+                return back()->with('failed','Error Uploading File, Please check file data!');
+            }
+        }
+        return back()->with('success','Registered!');
+    }
+    public function importsec(Request $request)
+    {
+        if($request->hasFile('file')){
+            try {
+                Excel::import(new secImport, $request->file('file'));
+            }
+            catch (QueryException $e) {
+                return back()->with('failed','Error Uploading File, Please check file data!');
+            }
+        }
+        return back()->with('success','Registered!');
     }
 }
